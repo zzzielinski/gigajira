@@ -1,0 +1,63 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Spring Boot
+application.properties
+
+# Docker
+postgres_data/
+
+# Java
+*.class
+
+# Maven wrapper logs
+.maven/
+
+# Temporary files
+tmp/
+temp/
+
+# Package files
+*.jar
+*.war
+
+# Generated files
+out/
+build/
+
+# Lombok
+.lombok
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+
+# Mac
+.AppleDouble
+.LSOverride
