@@ -21,6 +21,7 @@ public class User extends BaseEntity {
     private Long domainId;
 
     public String getUsername() { return username; }
+    public String getPassword() {return  password; }
     public String getEmail() { return email; }
     public Role getRole() { return role; }
     public Long getDomainId() { return domainId; }
