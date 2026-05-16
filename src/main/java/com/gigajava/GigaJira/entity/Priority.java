@@ -1,11 +1,20 @@
 package com.gigajava.GigaJira.entity;
 
-import com.gigajava.GigaJira.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class Priority extends BaseEntity {
+@Getter
+@Setter
+@Table(name = "priorities")
+public class Priority {
 
-    private int level;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Integer level; // 1-5
+
     private String label;
 }

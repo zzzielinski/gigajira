@@ -1,10 +1,18 @@
 package com.gigajava.GigaJira.entity;
 
-import com.gigajava.GigaJira.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class TaskStatus extends BaseEntity {
+@Getter
+@Setter
+@Table(name = "task_status")
+public class TaskStatus {
 
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name; // planning, ready, in_progress
 }

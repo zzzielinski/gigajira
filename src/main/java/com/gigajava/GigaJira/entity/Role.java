@@ -1,14 +1,18 @@
 package com.gigajava.GigaJira.entity;
 
-import com.gigajava.GigaJira.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class Role extends BaseEntity {
+@Getter
+@Setter
+@Table(name = "roles")
+public class Role {
 
-    @Column(nullable = false)
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    private String name; // admin, manager, developer
 }

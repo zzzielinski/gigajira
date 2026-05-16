@@ -4,15 +4,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
-@Table(name = "domains")
-public class Domain {
+@Table(name = "comments")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private Long taskId;
+
+    private Long authorId;
+
+    private String content;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

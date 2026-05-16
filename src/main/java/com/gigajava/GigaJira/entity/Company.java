@@ -1,10 +1,18 @@
 package com.gigajava.GigaJira.entity;
 
-import com.gigajava.GigaJira.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class Company extends BaseEntity {
+@Getter
+@Setter
+@Table(name = "companies")
+public class Company {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 

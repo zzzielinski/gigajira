@@ -1,9 +1,17 @@
 package com.gigajava.GigaJira.entity;
-import com.gigajava.GigaJira.entity.BaseEntity;
+
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-public class User extends BaseEntity {
+@Getter
+@Setter
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String username;
@@ -20,6 +28,7 @@ public class User extends BaseEntity {
 
     private Long domainId;
 
+    public Long getId() { return  id; }
     public String getUsername() { return username; }
     public String getPassword() {return  password; }
     public String getEmail() { return email; }
