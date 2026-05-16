@@ -1,0 +1,11 @@
+package com.gigajava.GigaJira.repository;
+
+import com.gigajava.GigaJira.entity.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+
+    List<Comment> findByTaskId(Long taskId);
+}
