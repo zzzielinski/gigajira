@@ -20,7 +20,7 @@ public class Attachment {
 
     private Long uploadedBy;
 
-    private String fileUrl;
+    private String filePath;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -78,4 +78,29 @@ public class TaskService {
 
         return taskRepository.save(task);
     }
+
+    public List<Task> filterTasks(Long projectId,
+                                  Long statusId,
+                                  Long assignedTo,
+                                  Long priorityId,
+                                  Long userId) {
+
+        if (!permissionService.canAccessProject(userId, projectId)) {
+            throw new RuntimeException("Access denied");
+        }
+
+        if (statusId != null) {
+            return taskRepository.findByProjectIdAndStatusId(projectId, statusId);
+        }
+
+        if (assignedTo != null) {
+            return taskRepository.findByProjectIdAndAssignedTo(projectId, assignedTo);
+        }
+
+        if (priorityId != null) {
+            return taskRepository.findByProjectIdAndPriorityId(projectId, priorityId);
+        }
+
+        return taskRepository.findByProjectId(projectId);
+    }
 }

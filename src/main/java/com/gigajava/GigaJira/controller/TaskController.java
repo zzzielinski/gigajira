@@ -54,4 +54,15 @@ public class TaskController {
 
         return taskService.changeStatus(id, userId, body.get("statusId"));
     }
+
+    @GetMapping("/filter")
+    public List<Task> filterTasks(
+            @RequestParam Long projectId,
+            @RequestParam(required = false) Long statusId,
+            @RequestParam(required = false) Long assignedTo,
+            @RequestParam(required = false) Long priorityId,
+            @RequestHeader("X-USER-ID") Long userId
+    ) {
+        return taskService.filterTasks(projectId, statusId, assignedTo, priorityId, userId);
+    }
 }
