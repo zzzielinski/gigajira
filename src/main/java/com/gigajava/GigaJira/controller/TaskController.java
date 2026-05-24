@@ -1,11 +1,13 @@
 package com.gigajava.GigaJira.controller;
 
+import com.gigajava.GigaJira.dto.TaskAssignRequest;
+import com.gigajava.GigaJira.dto.TaskCreateRequest;
+import com.gigajava.GigaJira.dto.TaskStatusUpdateRequest;
 import com.gigajava.GigaJira.entity.Task;
 import com.gigajava.GigaJira.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/tasks")
@@ -19,10 +21,10 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task create(@RequestBody Task task,
+    public Task create(@RequestBody TaskCreateRequest request,
                        @RequestHeader("X-USER-ID") Long userId) {
 
-        return taskService.create(task, userId);
+        return taskService.create(request, userId);
     }
 
     @GetMapping("/{id}")
@@ -41,18 +43,18 @@ public class TaskController {
 
     @PutMapping("/{id}/assign")
     public Task assign(@PathVariable Long id,
-                       @RequestBody Map<String, Long> body,
+                       @RequestBody TaskAssignRequest body,
                        @RequestHeader("X-USER-ID") Long userId) {
 
-        return taskService.assign(id, userId, body.get("assignedTo"));
+        return taskService.assign(id, userId, body.getAssignedTo());
     }
 
     @PutMapping("/{id}/status")
     public Task changeStatus(@PathVariable Long id,
-                             @RequestBody Map<String, Long> body,
+                             @RequestBody TaskStatusUpdateRequest body,
                              @RequestHeader("X-USER-ID") Long userId) {
 
-        return taskService.changeStatus(id, userId, body.get("statusId"));
+        return taskService.changeStatus(id, userId, body.getStatusId());
     }
 
     @GetMapping("/filter")

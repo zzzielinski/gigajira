@@ -1,5 +1,6 @@
 package com.gigajava.GigaJira.service;
 
+import com.gigajava.GigaJira.dto.CompanyCreateRequest;
 import com.gigajava.GigaJira.entity.Company;
 import com.gigajava.GigaJira.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,10 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public Company create(Company company) {
+    public Company create(CompanyCreateRequest request) {
+        Company company = new Company();
+        company.setName(request.getName());
+        company.setDomainId(request.getDomainId());
         return companyRepository.save(company);
     }
 

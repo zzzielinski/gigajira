@@ -1,5 +1,6 @@
 package com.gigajava.GigaJira.controller;
 
+import com.gigajava.GigaJira.dto.CompanyCreateRequest;
 import com.gigajava.GigaJira.entity.Company;
 import com.gigajava.GigaJira.service.CompanyService;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class CompanyController {
     }
 
     @PostMapping
-    public Company create(@RequestBody Company company) {
-        return companyService.create(company);
+    public Company create(@RequestBody CompanyCreateRequest request) {
+        return companyService.create(request);
     }
 
     @GetMapping

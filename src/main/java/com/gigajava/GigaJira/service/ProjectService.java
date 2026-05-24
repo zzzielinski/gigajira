@@ -1,5 +1,6 @@
 package com.gigajava.GigaJira.service;
 
+import com.gigajava.GigaJira.dto.ProjectCreateRequest;
 import com.gigajava.GigaJira.entity.Project;
 import com.gigajava.GigaJira.entity.ProjectMember;
 import com.gigajava.GigaJira.repository.CompanyRepository;
@@ -28,11 +29,14 @@ public class ProjectService {
         this.permissionService = permissionService;
     }
 
-    public Project create(Project project, Long userId) {
+    public Project create(ProjectCreateRequest request, Long userId) {
 
-        companyRepository.findById(project.getCompanyId())
+        companyRepository.findById(request.getCompanyId())
                 .orElseThrow(() -> new RuntimeException("Company not found"));
 
+        Project project = new Project();
+        project.setName(request.getName());
+        project.setCompanyId(request.getCompanyId());
         project.setCreatedBy(userId);
 
         Project savedProject = projectRepository.save(project);

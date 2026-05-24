@@ -1,12 +1,14 @@
 package com.gigajava.GigaJira.controller;
 
+import com.gigajava.GigaJira.dto.ProjectCreateRequest;
+import com.gigajava.GigaJira.dto.ProjectMemberAddRequest;
+import com.gigajava.GigaJira.dto.ProjectRenameRequest;
 import com.gigajava.GigaJira.entity.Project;
 import com.gigajava.GigaJira.entity.ProjectMember;
 import com.gigajava.GigaJira.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/projects")
@@ -20,10 +22,10 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Project create(@RequestBody Project project,
+    public Project create(@RequestBody ProjectCreateRequest request,
                           @RequestHeader("X-USER-ID") Long userId) {
 
-        return projectService.create(project, userId);
+        return projectService.create(request, userId);
     }
 
     @GetMapping
@@ -42,10 +44,10 @@ public class ProjectController {
 
     @PutMapping("/{id}")
     public Project rename(@PathVariable Long id,
-                          @RequestBody Map<String, String> body,
+                          @RequestBody ProjectRenameRequest body,
                           @RequestHeader("X-USER-ID") Long userId) {
 
-        return projectService.rename(id, body.get("name"), userId);
+        return projectService.rename(id, body.getName(), userId);
     }
 
     @DeleteMapping("/{id}")
@@ -57,12 +59,12 @@ public class ProjectController {
 
     @PostMapping("/{id}/members")
     public void addMember(@PathVariable Long id,
-                          @RequestBody Map<String, Long> body,
+                          @RequestBody ProjectMemberAddRequest body,
                           @RequestHeader("X-USER-ID") Long userId) {
 
         projectService.addMember(
                 id,
-                body.get("userId"),
+                body.getUserId(),
                 userId
         );
     }

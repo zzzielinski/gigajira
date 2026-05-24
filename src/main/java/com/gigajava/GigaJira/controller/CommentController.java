@@ -1,5 +1,7 @@
 package com.gigajava.GigaJira.controller;
 
+import com.gigajava.GigaJira.dto.CommentCreateRequest;
+import com.gigajava.GigaJira.dto.CommentUpdateRequest;
 import com.gigajava.GigaJira.entity.Comment;
 import com.gigajava.GigaJira.service.CommentService;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,10 @@ public class CommentController {
     }
 
     @PostMapping
-    public Comment create(@RequestBody Comment comment,
+    public Comment create(@RequestBody CommentCreateRequest request,
                           @RequestHeader("X-USER-ID") Long userId) {
 
-        return commentService.create(comment, userId);
+        return commentService.create(request, userId);
     }
 
     @GetMapping("/task/{taskId}")
@@ -29,5 +31,13 @@ public class CommentController {
                                    @RequestHeader("X-USER-ID") Long userId) {
 
         return commentService.getByTask(taskId, userId);
+    }
+
+    @PutMapping("/{commentId}")
+    public Comment update(@PathVariable Long commentId,
+                          @RequestBody CommentUpdateRequest body,
+                          @RequestHeader("X-USER-ID") Long userId) {
+
+        return commentService.update(commentId, userId, body.getContent());
     }
 }

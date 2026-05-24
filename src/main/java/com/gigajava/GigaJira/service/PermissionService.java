@@ -25,7 +25,7 @@ public class PermissionService {
     public boolean isAdmin(Long userId) {
         User user = getUser(userId);
 
-        return user.getRole().getName() == "Admin";
+        return user.getRole() != null && user.getRole().getId() == 1L;
     }
 
     public boolean canAccessProject(Long userId, Long projectId) {

@@ -1,5 +1,6 @@
 package com.gigajava.GigaJira.service;
 
+import com.gigajava.GigaJira.dto.TaskCreateRequest;
 import com.gigajava.GigaJira.entity.Task;
 import com.gigajava.GigaJira.repository.TaskRepository;
 import com.gigajava.GigaJira.repository.ProjectRepository;
@@ -26,15 +27,23 @@ public class TaskService {
         this.permissionService = permissionService;
     }
 
-    public Task create(Task task, Long userId) {
+    public Task create(TaskCreateRequest request, Long userId) {
 
-        if (!permissionService.canAccessProject(userId, task.getProjectId())) {
+        if (!permissionService.canAccessProject(userId, request.getProjectId())) {
             throw new RuntimeException("Access denied");
         }
 
-        projectRepository.findById(task.getProjectId())
+        projectRepository.findById(request.getProjectId())
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
+        Task task = new Task();
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setProjectId(request.getProjectId());
+        task.setAssignedTo(request.getAssignedTo());
+        task.setStatusId(request.getStatusId());
+        task.setPriorityId(request.getPriorityId());
+        task.setDueDate(request.getDueDate());
         task.setCreatedBy(userId);
 
         return taskRepository.save(task);
