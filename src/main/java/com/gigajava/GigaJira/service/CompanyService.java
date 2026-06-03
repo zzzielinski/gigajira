@@ -19,7 +19,6 @@ public class CompanyService {
     public Company create(CompanyCreateRequest request) {
         Company company = new Company();
         company.setName(request.getName());
-        company.setDomainId(request.getDomainId());
         return companyRepository.save(company);
     }
 

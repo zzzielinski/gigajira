@@ -15,4 +15,7 @@ public class Domain {
     private Long id;
 
     private String name;
+
+    @Column(name = "company_id")
+    private Long companyId;
 }

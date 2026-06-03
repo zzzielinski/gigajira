@@ -16,7 +16,7 @@ public class Project {
 
     private String name;
 
-    private Long companyId;
+    private Long domainId;
 
     private Long createdBy;
 }

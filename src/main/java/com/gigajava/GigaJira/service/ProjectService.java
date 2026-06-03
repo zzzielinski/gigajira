@@ -3,7 +3,7 @@ package com.gigajava.GigaJira.service;
 import com.gigajava.GigaJira.dto.ProjectCreateRequest;
 import com.gigajava.GigaJira.entity.Project;
 import com.gigajava.GigaJira.entity.ProjectMember;
-import com.gigajava.GigaJira.repository.CompanyRepository;
+import com.gigajava.GigaJira.repository.DomainRepository;
 import com.gigajava.GigaJira.repository.ProjectMemberRepository;
 import com.gigajava.GigaJira.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -16,27 +16,27 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectMemberRepository projectMemberRepository;
-    private final CompanyRepository companyRepository;
+    private final DomainRepository domainRepository;
     private final PermissionService permissionService;
 
     public ProjectService(ProjectRepository projectRepository,
                           ProjectMemberRepository projectMemberRepository,
-                          CompanyRepository companyRepository,
+                          DomainRepository domainRepository,
                           PermissionService permissionService) {
         this.projectRepository = projectRepository;
         this.projectMemberRepository = projectMemberRepository;
-        this.companyRepository = companyRepository;
+        this.domainRepository = domainRepository;
         this.permissionService = permissionService;
     }
 
     public Project create(ProjectCreateRequest request, Long userId) {
 
-        companyRepository.findById(request.getCompanyId())
-                .orElseThrow(() -> new RuntimeException("Company not found"));
+        domainRepository.findById(request.getDomainId())
+                .orElseThrow(() -> new RuntimeException("Domain not found"));
 
         Project project = new Project();
         project.setName(request.getName());
-        project.setCompanyId(request.getCompanyId());
+        project.setDomainId(request.getDomainId());
         project.setCreatedBy(userId);
 
         Project savedProject = projectRepository.save(project);
@@ -50,7 +50,6 @@ public class ProjectService {
         return savedProject;
     }
 
-    // GET PROJECT
     public Project get(Long projectId, Long userId) {
 
         if (!permissionService.canAccessProject(userId, projectId)) {
@@ -73,7 +72,6 @@ public class ProjectService {
         List<Project> projects = new ArrayList<>();
 
         for (ProjectMember member : memberships) {
-
             projectRepository.findById(member.getProjectId())
                     .ifPresent(projects::add);
         }
@@ -81,9 +79,7 @@ public class ProjectService {
         return projects;
     }
 
-    public Project rename(Long projectId,
-                          String name,
-                          Long userId) {
+    public Project rename(Long projectId, String name, Long userId) {
 
         if (!permissionService.canAccessProject(userId, projectId)) {
             throw new RuntimeException("Access denied");
@@ -106,9 +102,7 @@ public class ProjectService {
         projectRepository.deleteById(projectId);
     }
 
-    public void addMember(Long projectId,
-                          Long memberUserId,
-                          Long requesterId) {
+    public void addMember(Long projectId, Long memberUserId, Long requesterId) {
 
         if (!permissionService.canAccessProject(requesterId, projectId)) {
             throw new RuntimeException("Access denied");
@@ -122,16 +116,13 @@ public class ProjectService {
         }
 
         ProjectMember member = new ProjectMember();
-
         member.setProjectId(projectId);
         member.setUserId(memberUserId);
 
         projectMemberRepository.save(member);
     }
 
-    public void removeMember(Long projectId,
-                             Long memberUserId,
-                             Long requesterId) {
+    public void removeMember(Long projectId, Long memberUserId, Long requesterId) {
 
         if (!permissionService.canAccessProject(requesterId, projectId)) {
             throw new RuntimeException("Access denied");
@@ -144,8 +135,7 @@ public class ProjectService {
         projectMemberRepository.delete(member);
     }
 
-    public List<ProjectMember> getMembers(Long projectId,
-                                          Long requesterId) {
+    public List<ProjectMember> getMembers(Long projectId, Long requesterId) {
 
         if (!permissionService.canAccessProject(requesterId, projectId)) {
             throw new RuntimeException("Access denied");

@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProjectCreateRequest {
+public class DomainCreateRequest {
 
     private String name;
 
-    @JsonProperty("domain_id")
-    private Long domainId;
+    @JsonProperty("company_id")
+    private Long companyId;
 }
