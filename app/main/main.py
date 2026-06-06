@@ -1,6 +1,6 @@
 import os
 from PySide6.QtCore import QFile, QIODevice
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtUiTools import QUiLoader
 
 class Main:
@@ -18,8 +18,20 @@ class Main:
 
         PARENT_DIR = os.path.dirname(CURRENT_DIR)
         smallLogoPath = os.path.join(PARENT_DIR, "gigaJiraLogoRounded-small.png")
+        bigLogoPath = os.path.join(PARENT_DIR, "gigaJiraLogoRounded.png")
 
         self.window.setWindowIcon(QIcon(smallLogoPath))
+        self.window.logo.setPixmap(QPixmap(bigLogoPath))
+
+        self.window.stack.setCurrentIndex(0)
+        self.window.homeButton.clicked.connect(self.goHome)
+        self.window.calendarButton.clicked.connect(self.goCalendar)
 
     def show(self):
         self.window.show()
+
+    def goHome(self):
+        self.window.stack.setCurrentIndex(1)
+
+    def goCalendar(self):
+        self.window.stack.setCurrentIndex(0)
