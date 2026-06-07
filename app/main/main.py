@@ -5,6 +5,7 @@ from PySide6.QtUiTools import QUiLoader
 from main.components.manageCompanies import ManageCompanies
 from main.components.manageDomains import ManageDomains
 from main.components.manageProjects import ManageProjects
+from main.components.manageUsers import ManageUsers
 
 
 class Main:
@@ -39,6 +40,10 @@ class Main:
         self.projectIdx = self.window.stack.addWidget(self.manageProjects.window)
         self.window.manageProjectsButton.clicked.connect(self.goProjects)
 
+        self.manageUsers = ManageUsers()
+        self.userIdx = self.window.stack.addWidget(self.manageUsers.window)
+        self.window.manageUsersButton.clicked.connect(self.goUsers)
+
         self.window.stack.setCurrentIndex(0)
         self.window.homeButton.clicked.connect(self.goHome)
         self.window.calendarButton.clicked.connect(self.goCalendar)
@@ -61,5 +66,5 @@ class Main:
     def goProjects(self):
         self.window.stack.setCurrentIndex(self.projectIdx)
 
-    def goEmployees(self):
-        self.window.stack.setCurrentIndex(self.employeeIdx)
+    def goUsers(self):
+        self.window.stack.setCurrentIndex(self.userIdx)
