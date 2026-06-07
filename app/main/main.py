@@ -3,6 +3,7 @@ from PySide6.QtCore import QFile, QIODevice
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtUiTools import QUiLoader
 from main.components.manageCompanies import ManageCompanies
+from main.components.manageDomains import ManageDomains
 
 
 class Main:
@@ -28,6 +29,10 @@ class Main:
         self.manageCompanies = ManageCompanies()
         self.companyIdx = self.window.stack.addWidget(self.manageCompanies.window)
         self.window.manageCompaniesButton.clicked.connect(self.goCompanies)
+
+        self.manageDomains = ManageDomains()
+        self.domainIdx = self.window.stack.addWidget(self.manageDomains.window)
+        self.window.manageDomainsButton.clicked.connect(self.goDomains)
 
         self.window.stack.setCurrentIndex(0)
         self.window.homeButton.clicked.connect(self.goHome)
