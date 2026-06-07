@@ -4,6 +4,7 @@ from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtUiTools import QUiLoader
 from main.components.manageCompanies import ManageCompanies
 from main.components.manageDomains import ManageDomains
+from main.components.manageProjects import ManageProjects
 
 
 class Main:
@@ -33,6 +34,10 @@ class Main:
         self.manageDomains = ManageDomains()
         self.domainIdx = self.window.stack.addWidget(self.manageDomains.window)
         self.window.manageDomainsButton.clicked.connect(self.goDomains)
+
+        self.manageProjects = ManageProjects()
+        self.projectIdx = self.window.stack.addWidget(self.manageProjects.window)
+        self.window.manageProjectsButton.clicked.connect(self.goProjects)
 
         self.window.stack.setCurrentIndex(0)
         self.window.homeButton.clicked.connect(self.goHome)
