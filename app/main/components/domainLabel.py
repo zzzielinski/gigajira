@@ -34,4 +34,4 @@ class DomainLabel:
         self.window.show()
 
     def manage(self):
-        print(f"Manage company {self.window.company.text()}")
+        print(f"Manage domain {self.window.company.text()}")
