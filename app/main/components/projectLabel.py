@@ -34,4 +34,4 @@ class ProjectLabel:
         self.window.show()
 
     def manage(self):
-        print(f"Manage project {self.window.company.text()}")
+        print(f"Manage project {self.window.project.text()}")
