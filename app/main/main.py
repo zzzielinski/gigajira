@@ -1,5 +1,6 @@
 import os
 from PySide6.QtCore import QFile, QIODevice
+from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtUiTools import QUiLoader
 from main.components.manageCompanies import ManageCompanies
@@ -43,6 +44,8 @@ class Main:
         self.manageUsers = ManageUsers()
         self.userIdx = self.window.stack.addWidget(self.manageUsers.window)
         self.window.manageUsersButton.clicked.connect(self.goUsers)
+
+        self.window.logoutButton.clicked.connect(QApplication.instance().quit)
 
         self.window.stack.setCurrentIndex(0)
         self.window.homeButton.clicked.connect(self.goHome)
