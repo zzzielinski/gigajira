@@ -2,6 +2,8 @@ import os
 from PySide6.QtCore import QFile, QIODevice
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtUiTools import QUiLoader
+from main.components.manageCompanies import ManageCompanies
+
 
 class Main:
     def __init__(self):
@@ -23,6 +25,10 @@ class Main:
         self.window.setWindowIcon(QIcon(smallLogoPath))
         self.window.logo.setPixmap(QPixmap(bigLogoPath))
 
+        self.manageCompanies = ManageCompanies()
+        self.companyIdx = self.window.stack.addWidget(self.manageCompanies.window)
+        self.window.manageCompaniesButton.clicked.connect(self.goCompanies)
+
         self.window.stack.setCurrentIndex(0)
         self.window.homeButton.clicked.connect(self.goHome)
         self.window.calendarButton.clicked.connect(self.goCalendar)
@@ -35,3 +41,15 @@ class Main:
 
     def goCalendar(self):
         self.window.stack.setCurrentIndex(0)
+
+    def goCompanies(self):
+        self.window.stack.setCurrentIndex(self.companyIdx)
+
+    def goDomains(self):
+        self.window.stack.setCurrentIndex(self.domainIdx)
+
+    def goProjects(self):
+        self.window.stack.setCurrentIndex(self.projectIdx)
+
+    def goEmployees(self):
+        self.window.stack.setCurrentIndex(self.employeeIdx)
